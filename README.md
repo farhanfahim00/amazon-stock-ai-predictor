@@ -1,122 +1,265 @@
-Farhan Fahim, Taimoor, 12400208
+# Farhan Fahim Taimoor 
+# AI Stock Trend Predictor
 
-The AI Stock Trend Predictor
+---
 
-https://mygit.th-deg.de/ft02208/ai-assistant-stock-trend-predictor-farhan-fahim-taimoor
+## Project Description
 
-https://mygit.th-deg.de/ft02208/ai-assistant-stock-trend-predictor-farhan-fahim-taimoor/-/wikis/Home
+The AI Stock Trend Predictor is a machine learning–based assistance system that analyzes historical Amazon (AMZN) stock data to forecast short-term market movement. This project demonstrates a complete ML pipeline including:
 
-# Project Description
+- Data preprocessing and feature engineering
+- Leakage-free time series modeling
+- Model training and evaluation
+- Augmented (synthetic) data generation for robustness testing
+- Interactive Streamlit application
+- Voice-enabled chatbot with on-demand text-to-speech
 
-**WS 25/26 – Assistance Systems**
+Course: Assistance Systems (WS 25/26)
+Stock: Amazon (AMZN)
+Time Range: 1997 – 2025
 
-The **AI Stock Trend Predictor** is a machine learning–based assistance system designed to analyze historical Amazon (AMZN) stock data and provide short-term market insights.  
-The system combines **feature engineering, ensemble learning models, and an interactive chatbot** to predict stock movement direction and short-term returns while emphasizing explainability and realistic expectations.
+---
 
-Rather than attempting to outperform financial markets, the project focuses on:
-- Understanding machine learning behavior on noisy financial data
-- Demonstrating the limitations of stock prediction
-- Providing an interactive, voice-enabled assistant for educational analysis
+## Key Features
 
-The project implements a complete ML pipeline:
-- Data preprocessing and feature engineering  
-- Model training and evaluation  
-- Real vs augmented data comparison  
-- Interactive Streamlit dashboard  
-- Context-aware chatbot with optional voice interaction
+- End-to-end ML pipeline: raw data → features → models → app
+- Classification model (Next-Day UP/DOWN)
+- Regression models (1-Day and 5-Day returns)
+- Augmented synthetic dataset for robustness analysis
+- Real vs Augmented model comparison
+- Interactive Streamlit dashboard
+- Voice-enabled chatbot
+- Date-based price lookup + prediction
+- On-demand text-to-speech responses
 
+---
 
-# Installation
+## Repository Structure
 
-## Prerequisites
+``` text
+.
+├── App/
+├── Data/
+├── models/
+├── scripts/
+├── visualizations/
+├── model_training.py
+├── model_training_augmented_data.py
+├── requirements.txt
+└── README.md
+```
 
-- Python **3.11 or higher**
-- pip (Python package manager)
-- Microphone (optional, for voice input feature)
+---
 
-Clone the repo and install dependencies:
+## Installation
+
+### Prerequisites
+
+- Python 3.11+
+- pip
+- Microphone (optional for voice features)
+
+### Setup
 
 ```bash
-git clone https://mygit.th-deg.de/ft02208/ai-assistant-stock-trend-predictor-farhan-fahim-taimoor.git
-cd ai-assistant-stock-trend-predictor-farhan-fahim-taimoor
+git clone git@github.com:farhanfahim00/amazon-stock-ai-predictor.git
 pip install -r requirements.txt
 ```
 
+---
 
-### Running the Application
+## Running the Application
 
-### Start the Streamlit App
-
-```bash
-streamlit run "App/App Home.py"
-```
-The application will open in your default web browser.
-
-
-###  Data Cleaning & Feature Engineering
+Start the Streamlit app from the project root:
 
 ```bash
-cd scripts
-python data_cleaning.py
+streamlit run "App/'App Home'.py"
 ```
 
-This script:
-- Cleans raw Amazon stock data
-- Engineers 18+ technical indicators
-- Creates classification and regression targets
-- Saves the processed dataset to the /Data/ directory
+The application will open in your default browser.
 
+---
 
-###  Model Training
+## Data Pipeline
+
+**1) Create Engineered Features**
+
+```bash
+python scripts/'data cleaning'.py
+```
+
+**2) Generate Augmented Dataset**
+
+```bash
+python scripts/'augment data'.py
+```
+
+---
+
+## Model Training
+
+**Train Real Data Models**
 
 ```bash
 python model_training.py
+```
+
+**Train Augmented Data Models**
+
+```bash
 python model_training_augmented_data.py
 ```
-This generates the following trained models:
-- rf_classifier.joblib – Next-day direction classification
-- rf_1day_regressor.joblib – 1-day return regression
-- rf_5day_regressor.joblib – 5-day return regression
-- ridge_regressor.joblib – Linear baseline model
 
-Note: Pre-trained models are included in the repository for immediate use.
+Models will be saved inside the `models/` folder as `.joblib` files.
 
+---
 
-# Data
+## Model Philosophy
 
-Kaggle Link to Amazon Stocks Dataset [Link](https://www.kaggle.com/datasets/meharshanali/amazon-stocks-2025)
+- Stock prediction at daily level is extremely difficult
+- R² near zero is realistic for short-term returns
+- Directional accuracy slightly above 50% can indicate weak but real signal
+- This project focuses on methodological correctness, not inflated metrics
 
-The descriptions about the data can be found in the [Data Wiki](https://mygit.th-deg.de/ft02208/ai-assistant-stock-trend-predictor-farhan-fahim-taimoor/-/wikis/Data)
+---
 
+## Screencast
 
-# Basic Usage
+A full walkthrough of:
 
-Within the Streamlit application, users can:
-- Explore historical stock data and engineered features
-- Evaluate classification and regression model performance
-- Compare real and augmented datasets
-- Predict:
-- Next-day stock direction (Up / Down)
-- 1-day return
-- 5-day return
-- Interact with StockBot, a context-aware chatbot supporting:
-	- Text-based queries
-	- Optional voice input
-	- On-demand text-to-speech responses
-	- Date-based price queries followed by predictions
+- Repository structure
+- Data engineering
+- Model training
+- Streamlit app
+- Chatbot (voice + text)
 
-**Watch the screencast here:**  
-[Streamlit App Screencast](App/screencast/streamlit-App Home-2026-01-23-19-01-20.webm)
+Link: *(Add your public video link here)*
 
-Additional Notes
-- Daily stock direction prediction is inherently difficult; the system achieves ~54–58% directional accuracy, which is realistic for financial time series.
-- Regression results highlight the challenge of predicting exact returns, supporting the Efficient Market Hypothesis.
-- All models are trained using leakage-free, time-series–aware validation.
-- The chatbot is designed as an assistance system, focusing on explanation, interaction, and user guidance rather than automated trading decisions.
+---
 
+## Tech Stack
 
+| Tool | Purpose |
+|---|---|
+| Python | Core language |
+| pandas | Data manipulation |
+| NumPy | Numerical operations |
+| scikit-learn | ML models |
+| Streamlit | Web application |
+| matplotlib | Static plots |
+| Plotly | Interactive charts |
+| SpeechRecognition | Voice input |
+| gTTS | Text-to-speech |
+| joblib | Model serialization |
 
-# Additional Notes
+---
 
-- The project demonstrates realistic expectations in stock prediction, showing the difficulty of exact returns but achieving ~54% directional accuracy.
-- The ML pipeline is fully leakage-free, using proper time-series validation and feature engineering with advanced indicators like RSI, MACD, Bollinger Bands, ATR, ROC.
+## Disclaimer
+
+This project is for educational purposes only and does not provide financial advice. Financial markets are highly efficient and unpredictable.
+
+---
+---
+
+# Streamlit Application – AI Stock Trend Predictor
+
+This folder contains the full Streamlit interface for the AI Stock Trend Predictor. The app provides interactive access to:
+
+- Historical stock data exploration
+- Technical indicator explanations
+- Real data model predictions
+- Augmented data model predictions
+- Real vs Augmented comparison
+- Chatbot interaction (text + voice)
+- Date-based price lookup + prediction
+- On-demand text-to-speech responses
+
+---
+
+## How to Run
+
+From the project root directory:
+
+```bash
+streamlit run "App/'App Home'.py"
+```
+
+---
+
+## App Pages Overview
+
+**Home**
+Project overview and navigation instructions.
+
+**Data Overview**
+- Dataset preview
+- Feature explanations
+- Selectable visualizations
+- Target distribution
+- Correlation matrix
+
+**Real Data Predictions**
+- Next-day direction classification
+- 1-day return regression
+- 5-day return regression
+
+**Augmented Data Predictions**
+- Same prediction types using augmented models
+- Used to test robustness
+
+**Real vs Augmented Comparison**
+- Compare predictions using identical feature inputs
+- Evaluate stability of models
+
+**Chatbot**
+Supports:
+- Predict tomorrow
+- Predict 1-day return
+- Predict 5-day return
+- Explain RSI, MACD, ATR, BB_Position
+- Show top features
+- Price on specific date
+- Repeat last prediction
+- Voice input
+- Playable text-to-speech output
+
+---
+
+## Important Path Note
+
+All paths inside the app use relative references such as:
+
+```
+Data/AMZN_data_with_features.csv
+models/rf_classifier.joblib
+visualizations/chart1_stock_price.png
+```
+
+This ensures portability across systems.
+
+---
+
+## Chatbot Architecture
+
+Located in: `App/chatbot/`
+
+| File | Role |
+|---|---|
+| `controller.py` | Routes intent |
+| `intents.py` | Detects user intent |
+| `responses.py` | Explainable response logic |
+| `dialogs.py` | Example conversation patterns |
+
+---
+
+## Educational Purpose
+
+This application demonstrates:
+
+- Time-series safe ML design
+- Realistic financial modeling
+- Explainable AI concepts
+- Robustness testing using synthetic data
+
+It is not intended for trading decisions.
+```
